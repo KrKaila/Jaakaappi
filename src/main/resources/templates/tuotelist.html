@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Harjoitustyo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Jääkaapin sisältö</h1>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
+<form th:action="@{/logout}" method="post">
+<input type="submit" value="Kirjaudu ulos"/>
+</form>
+<table class="table-striped">
+<tr>
+<th>Tuote</th>
+<th>Päiväys</th>
+</tr>
+<tr th:each = "tuote : ${tuotteet}">
+<td th:text="${tuote.name}"></td>
+<td th:text="${tuote.date}"></td>
+<td th:text="${tuote.luokka.lname}"></td>
+<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${tuote.id})}">Poista</a></td>
+</tr>
+</table>
+<a href="/add">Lisää tuote</a>
+</body>
+</html>

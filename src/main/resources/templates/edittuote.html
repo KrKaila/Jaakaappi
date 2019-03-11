@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns="http://w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Harjoitustyo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Muokkaa tuotetta</h1>
+<form th:object="${tuote}" th:action="@{../save}" action="#" method="post">
+	<input type="hidden" th:field="*{id}" class="form-control"/>
+	<input type="text" th:field="*{nimi}"/>
+	<input type="text" th:field="*{luokka}"/>
+	</form>
+</body>
+</html>

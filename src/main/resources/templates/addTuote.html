@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Harjoitustyo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Lisää tuote jääkaappiin</h1>
+<div>
+<form th:object="${tuote}" th:action=@{save} action="#" method="post">
+	<label for="name">Tuote</label>
+	<input type="text" id="name" th:field="*{name}" />
+	<div style="clear:both; display:block; height: 10px;"></div>
+	<label for="date">Päiväys</label>
+	<input type="date" id="date" th:field="*{date}"/>
+	<div style="clear:both; display:block; height: 10px;"></div>
+	<label for="luokkalista">Luokka</label>
+	<select id="luokkalista" th:field="*{luokka}" class="form-control">
+		<option th:each="luokka:${luokat}"
+	th:value="${luokka.luokkaid}" th:text="${luokka.lname}"></option>
+	</select>
+	<div style="clear:both; display:block; height: 10px;"></div>
+	<input type="submit" value="Tallenna"></input>
+</form>
+</div>
+</body>
+</html>
