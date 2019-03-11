@@ -1,7 +1,5 @@
 package HaagaHelia.Jaakaappi;
 
-import java.sql.Date;
-import java.util.Calendar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import HaagaHelia.Jaakaappi.domain.Luokka;
 import HaagaHelia.Jaakaappi.domain.LuokkaRepository;
 import HaagaHelia.Jaakaappi.domain.Tuote;
 import HaagaHelia.Jaakaappi.domain.TuoteRepository;
@@ -42,5 +39,4 @@ public class JaakaappiApplication {
 			}
 	};
 	}
-
 }
