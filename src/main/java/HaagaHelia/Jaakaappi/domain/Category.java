@@ -11,41 +11,41 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public class Luokka {
+public class Category {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long luokkaid;
-	private String lname;
+	private Long category_id;
+	private String categoryName;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "luokka")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Tuote> tuotteet;
 	
-	public Luokka() {}
+	public Category() {}
 
 	
-	public Luokka(String name) {
+	public Category(String categoryName) {
 		super();
-		this.lname = lname;
+		this.categoryName = categoryName;
 	}
 	
 
-	public Long getLuokkaid() {
-		return luokkaid;
+	public Long getCategory_id() {
+		return category_id;
 	}
 
 
-	public void setLuokkaid(Long luokkaid) {
-		this.luokkaid = luokkaid;
+	public void setCategory_id(Long category_id) {
+		this.category_id = category_id;
 	}
 
 
 	public String getName() {
-		return lname;
+		return categoryName;
 	}
 
 
-	public void setName(String name) {
-		this.lname = lname;
+	public void setCategoryName(String category_id) {
+		this.categoryName = categoryName;
 	}
 
 
@@ -61,7 +61,7 @@ public class Luokka {
 
 	@Override
 	public String toString() {
-		return "Luokka [luokkaid=" + luokkaid + ", lname=" + lname + "]";
+		return "Luokka [luokkaid=" + category_id + ", categoryName=" + categoryName + "]";
 	}
 	
 	

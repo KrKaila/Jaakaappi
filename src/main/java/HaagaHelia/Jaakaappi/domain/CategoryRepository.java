@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface LuokkaRepository extends CrudRepository<Luokka, Long> {
-	List<Luokka> findByName(String luokka);
+public interface CategoryRepository extends CrudRepository<Category, Long> {
+	List<Category> findByName(String category);
 
 }

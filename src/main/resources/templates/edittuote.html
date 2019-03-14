@@ -9,8 +9,11 @@ xmlns:th="http://www.thymeleaf.org">
 <h1>Muokkaa tuotetta</h1>
 <form th:object="${tuote}" th:action="@{../save}" action="#" method="post">
 	<input type="hidden" th:field="*{id}" class="form-control"/>
-	<input type="text" th:field="*{nimi}"/>
-	<input type="text" th:field="*{luokka}"/>
+	<input type="text" th:field="*{name}"/>
+	<input th:if="${#fields.hasErrors('name')}"th:errors="*{name}">Error/>
+	<input type="date" th:field="date"/>
+	<input type="text" th:field="*{Category}"/>
+	<input type="submit" class="btn btn-warning" value="Tallenna"></input>
 	</form>
 </body>
 </html>

@@ -2,16 +2,19 @@ package HaagaHelia.Jaakaappi.web;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import HaagaHelia.Jaakaappi.domain.LuokkaRepository;
+import HaagaHelia.Jaakaappi.domain.CategoryRepository;
 import HaagaHelia.Jaakaappi.domain.Tuote;
 import HaagaHelia.Jaakaappi.domain.TuoteRepository;
 
@@ -23,8 +26,16 @@ public class tuoteController {
 	private TuoteRepository trepository;
 	//luokkarepository
 	@Autowired
-	private LuokkaRepository lrepository;
+	private CategoryRepository categoryRepository;
 	
+	 @RequestMapping(value="/login")
+	    public String login() {	
+	        return "login";
+	    }	
+	 @RequestMapping(value="/login?logout")	
+	 public String logout() {
+	 	return "redirect:..login";
+}
 	//näytä kaikki tuotteet
 	@RequestMapping(value="/tuotelist")
 	public String tuotelist(Model model) {
@@ -38,11 +49,14 @@ public class tuoteController {
 		return trepository.findById(tuoteid);
 	}
 	//lisää tuote
-	@RequestMapping(value="/add")
+	@RequestMapping(value="/add", method=RequestMethod.POST)
 	@PreAuthorize("hasRole('ADMIN')")
-	public String addTuote(Model model) {
+	public String addTuote(@Valid String name, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "tuotelist";
+		}
 		model.addAttribute("tuote", new Tuote());
-		model.addAttribute("luokat", lrepository.findAll());
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "addtuote";
 	}
 	
@@ -50,7 +64,7 @@ public class tuoteController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public String editTuote(@PathVariable("tuoteid") Long tuoteid, Model model) {
 		model.addAttribute("tuote", trepository.findById(tuoteid));
-		model.addAttribute("luokat", lrepository.findAll());
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "edittuote";
 	}
 	//tallenna tuote
