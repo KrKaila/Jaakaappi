@@ -1,6 +1,7 @@
 package HaagaHelia.Jaakaappi.domain;
 
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,10 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,93 +20,66 @@ public class Tuote {
 //id ja generatedValue tekevät yksilöllisen primary keyn tuotteille
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long tuoteid;
+	private Long tuoteid;
 	
 	@NotNull
-	@Min(1)
-	@Max(30)
 	private String name;
 	
-	@NotNull
+	/*@NotNull
 	@Basic
-	@Past
 	private Date date;
-	
+	*/
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "category_id")
-    private Category categoryName;
+	private Category categoryName;
 	
 	public Tuote() {}
-	
-	
-	
-	public Tuote(@NotNull @Min(1) @Max(30) String name, @NotNull @Past Date date, Category categoryName) {
+	public Tuote(@NotNull String name, Date date, Category categoryName) {
+	super();
+	this.name = name;
+	//this.date = date;
+	this.categoryName = categoryName;
+	}
+	/*public Tuote(@NotNull String name, Date date) {
+	super();
+	this.name = name;
+	this.date = date;
+	}
+	*/
+	public Tuote(String name) {
 		super();
 		this.name = name;
-		this.date = date;
-		this.categoryName = categoryName;
 	}
-
-
-
-	public long getTuoteid() {
+	public Long getTuoteid() {
 		return tuoteid;
 	}
-
-
-
-	public void setTuoteid(long tuoteid) {
+	public void setTuoteid(Long tuoteid) {
 		this.tuoteid = tuoteid;
 	}
-
-
-
 	public String getName() {
 		return name;
 	}
-
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-
+	/*
 	public Date getDate() {
 		return date;
 	}
-
-
-
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-
-
+	*/
 	public Category getCategoryName() {
 		return categoryName;
 	}
-
-
-
 	public void setCategoryName(Category categoryName) {
 		this.categoryName = categoryName;
 	}
-
-
-
-	public Tuote(long tuoteid, @NotNull @Min(1) @Max(30) String name, @NotNull @Past Date date, Category categoryName) {
-		super();
-		this.tuoteid = tuoteid;
-		this.name = name;
-		this.date = date;
-		this.categoryName = categoryName;
+	
+	@Override
+	public String toString() {
+		return "Tuote [tuoteid=" + tuoteid + ", name=" + name + "]";
 	}
-
-
-
-		
-	}
+}

@@ -1,29 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Harjoitustyo</title>
+    <title>Harjoitustyo - Palvelinohjelmointi</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
 </head>
 <body>
 <h1>Lisää tuote jääkaappiin</h1>
-<div>
+<div class="container">
+<div class="col-md-4">
 <form th:object="${tuote}" th:action=@{save} action="#" method="post">
 	<label for="name">Tuote</label>
-	<input type="text" id="name" th:field="*{name}" />
-	<input th:if="${#fields.hasErrors('name')}"th:errors="*{name}">Error/>
+	<input type="text" id="name" th:field="*{name}" class="form-control"/>
+	<input th:if="${#fields.hasErrors('name')}"th:errors="*{name}">Virrrhe/>
 	<div style="clear:both; display:block; height: 10px;"></div>
-	<label for="date">Päiväys</label>
-	<input type="date" id="date" th:field="*{date}"/>
+	
+	<label for="date">Parasta ennen</label>
+	<input type="date" id="date" th:field="*{date}" class="form-control"/>
 	<div style="clear:both; display:block; height: 10px;"></div>
-	<label for="luokkalista">Luokka</label>
+	
+	<label for="luokkalista">Elintarvikeluokka</label>
 	<select id="luokkalista" th:field="*{luokka}" class="form-control">
-		<option th:each="luokka:${luokat}"
-	th:value="${luokka.category_id}" 
-	th:text="${luokka.categoryName}"></option>
+		<option th:each="luokka: ${luokat}"
+	th:value="${luokka.category_id}" th:text="${luokka.categoryName}"></option>
 	</select>
 	<div style="clear:both; display:block; height: 10px;"></div>
-	<input type="submit" value="Tallenna"></input>
+	<input type="submit" class="btn btn-warning" value="Tallenna"></input>
 </form>
+</div>
 </div>
 </body>
 </html>

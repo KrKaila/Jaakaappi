@@ -17,53 +17,37 @@ public class Category {
 	private Long category_id;
 	private String categoryName;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryName")
 	private List<Tuote> tuotteet;
 	
 	public Category() {}
-
 	
 	public Category(String categoryName) {
 		super();
 		this.categoryName = categoryName;
 	}
-	
-
 	public Long getCategory_id() {
 		return category_id;
 	}
-
-
 	public void setCategory_id(Long category_id) {
 		this.category_id = category_id;
 	}
-
-
-	public String getName() {
+	public String getCategoryName() {
 		return categoryName;
 	}
-
-
-	public void setCategoryName(String category_id) {
+	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-
-
 	public List<Tuote> getTuotteet() {
 		return tuotteet;
 	}
-
-
 	public void setTuotteet(List<Tuote> tuotteet) {
 		this.tuotteet = tuotteet;
 	}
-
-
 	@Override
 	public String toString() {
-		return "Luokka [luokkaid=" + category_id + ", categoryName=" + categoryName + "]";
+		return "Category [category_id=" + category_id + ", categoryName=" + categoryName + ", tuotteet=" + tuotteet
+				+ "]";
 	}
 	
-	
-
 }

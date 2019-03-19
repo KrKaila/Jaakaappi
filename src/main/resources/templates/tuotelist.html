@@ -1,33 +1,34 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Harjoitustyo</title>
+    <title>Harjoitustyo - Palvelinohjelmointi</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  
 </head>
 <body>
+<div class="container">
+<div class="col-md-4">
 <h1>Jääkaapin sisältö</h1>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-
-<form th:action="@{/logout}" method="post">
-<input type="submit" value="Kirjaudu ulos"/>
-</form>
+</div>
+<div class="col-md-4">
+</div>
 
 <table class="table-striped">
 <tr>
 <th>Tuote</th>
-<th>Päiväys</th>
+<th>Käyttöpäivä</th>
+<th>Ruokaluokka</th>
+
 </tr>
 <tr th:each = "tuote : ${tuotteet}">
 <td th:text="${tuote.name}"></td>
-<td th:text="${tuote.date}"></td>
-<td th:text="${tuote.category.categoryName}"></td>
-<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${tuote.id})}">Poista</a></td>
+
+
+<td><a th:href="@{/delete/{id}(id=${tuote.tuoteid})}" class="btn btn-xs btn-danger">Poista</a></td>
 </tr>
 </table>
-<p> sec:authorize="hasRole('ADMIN')"><a th:href="/add">Lisää tuote</a></p>
-<form th:action="@{/logout}"method="post">
-<input type="submit"value="Sign Out"/></form>
+<!-- sec:authorize="hasRole('ADMIN')">--><a href="/add" class="btn btn-sm btn-danger">Lisää tuote</a>
+</div>
 
 </body>
 </html>

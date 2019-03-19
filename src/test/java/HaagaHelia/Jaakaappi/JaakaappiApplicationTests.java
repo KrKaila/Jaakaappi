@@ -9,10 +9,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import HaagaHelia.Jaakaappi.domain.Category;
 import HaagaHelia.Jaakaappi.domain.Tuote;
 import HaagaHelia.Jaakaappi.domain.TuoteRepository;
+
 
 
 //pystyytään käyytämmään vertailumetodeita, laita aina nämä kaksi annotaatiota
@@ -22,14 +21,14 @@ public class JaakaappiApplicationTests {
 //myös tämä pitää laittaa
 	
     @Autowired
-    private TuoteRepository repository;
-
+    private TuoteRepository trepository;
+    
+   
     @Test
     public void findByNameShouldReturnTuote() {
-        List<Tuote> tuotteet = repository.findByNameIgnoreCase("Maito");
+        List<Tuote> tuotteet = trepository.findByName("MAITO");
         
         assertThat(tuotteet).hasSize(1);
-       
     }
     
    
