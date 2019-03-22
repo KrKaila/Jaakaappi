@@ -1,4 +1,4 @@
-package HaagaHelia.Jaakaappi.domain;
+package HaagaHelia.Tuote.domain;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Category {
 	private Long category_id;
 	private String categoryName;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryName")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Tuote> tuotteet;
 	
 	public Category() {}

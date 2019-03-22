@@ -1,4 +1,4 @@
-package HaagaHelia.Jaakaappi.domain;
+package HaagaHelia.Tuote.domain;
 
 import java.util.Date;
 
@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,28 +24,31 @@ public class Tuote {
 	@NotNull
 	private String name;
 	
-	/*@NotNull
 	@Basic
 	private Date date;
-	*/
+	
+	// private Category categoryName; sama nimi kuin OneToManyssä MappedBy= --Ehkä?
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "category_id")
-	private Category categoryName;
+	private Category category;
 	
 	public Tuote() {}
-	public Tuote(@NotNull String name, Date date, Category categoryName) {
+	public Tuote(@NotNull String name, Date date, Category category) {
 	super();
 	this.name = name;
 	//this.date = date;
-	this.categoryName = categoryName;
+	this.category = category;
 	}
-	/*public Tuote(@NotNull String name, Date date) {
+	public Tuote(@NotNull String name, Date date) {
 	super();
 	this.name = name;
 	this.date = date;
 	}
-	*/
+	public Tuote(@NotNull String name, Category category) {
+	super();
+	this.name = name;
+	}
 	public Tuote(String name) {
 		super();
 		this.name = name;
@@ -63,23 +65,25 @@ public class Tuote {
 	public void setName(String name) {
 		this.name = name;
 	}
-	/*
+	
 	public Date getDate() {
 		return date;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	*/
-	public Category getCategoryName() {
-		return categoryName;
-	}
-	public void setCategoryName(Category categoryName) {
-		this.categoryName = categoryName;
-	}
 	
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	@Override
 	public String toString() {
-		return "Tuote [tuoteid=" + tuoteid + ", name=" + name + "]";
+		if (this.category != null)
+			return "Tuote [tuoteid=" + tuoteid + ", name=" + name + ", category =" + this.getCategory() + "]";
+		else
+		return "Tuote [tuoteid=" + tuoteid + ", name=" + name + ", date =" + date + "]";
 	}
 }

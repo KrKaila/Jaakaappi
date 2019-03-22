@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import HaagaHelia.Jaakaappi.domain.Tuote;
-import HaagaHelia.Jaakaappi.domain.TuoteRepository;
+import HaagaHelia.Tuote.domain.Tuote;
+import HaagaHelia.Tuote.domain.TuoteRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

@@ -9,8 +9,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import HaagaHelia.Jaakaappi.domain.Tuote;
-import HaagaHelia.Jaakaappi.domain.TuoteRepository;
+
+import HaagaHelia.Tuote.domain.Tuote;
+import HaagaHelia.Tuote.domain.TuoteRepository;
 
 
 

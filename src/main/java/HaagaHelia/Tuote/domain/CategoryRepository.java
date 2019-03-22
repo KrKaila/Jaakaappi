@@ -1,4 +1,4 @@
-package HaagaHelia.Jaakaappi.domain;
+package HaagaHelia.Tuote.domain;
 
 import java.util.List;
 

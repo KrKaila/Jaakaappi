@@ -1,4 +1,4 @@
-package HaagaHelia.Jaakaappi.domain;
+package HaagaHelia.Tuote.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +10,8 @@ import javax.persistence.Id;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name ="id", nullable = false, updatable = false)
-	private Long id;
+	@Column(name ="uid", nullable = false, updatable = false)
+	private Long uid;
 	
 	@Column(name ="role", nullable = false)
 	private String role;
@@ -30,11 +30,11 @@ public class User {
 		this.username = username;
 		this.passwordHash = passwordHash;
 	}
-	public Long getId() {
-		return id;
+	public Long getUid() {
+		return uid;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setUid(Long uid) {
+		this.uid = uid;
 	}
 	public String getRole() {
 		return role;
@@ -56,7 +56,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", role=" + role + ", username=" + username + ", passwordHash=" + passwordHash + "]";
+		return "User [uid=" + uid + ", role=" + role + ", username=" + username + ", passwordHash=" + passwordHash + "]";
 	}
 
 }

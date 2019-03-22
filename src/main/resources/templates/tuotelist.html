@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Harjoitustyo - Palvelinohjelmointi</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,24 +10,24 @@
 <div class="col-md-4">
 <h1>Jääkaapin sisältö</h1>
 </div>
+<h2 th:inline="text">Moi [[${#httpServletRequest.remoteUser}]]!</h2>
 <div class="col-md-4">
 </div>
-
 <table class="table-striped">
 <tr>
 <th>Tuote</th>
 <th>Käyttöpäivä</th>
 <th>Ruokaluokka</th>
-
 </tr>
 <tr th:each = "tuote : ${tuotteet}">
 <td th:text="${tuote.name}"></td>
+<td th:text="${tuote.category.categoryName}"></td>
 
-
-<td><a th:href="@{/delete/{id}(id=${tuote.tuoteid})}" class="btn btn-xs btn-danger">Poista</a></td>
+<!-- id sama kuin controllerissa, suluissa selitys mihin viittaa -->
+<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${tuote.tuoteid})}" class="btn btn-xs btn-danger">Poista</a></td>
 </tr>
 </table>
-<!-- sec:authorize="hasRole('ADMIN')">--><a href="/add" class="btn btn-sm btn-danger">Lisää tuote</a>
+<a sec:authorize="hasAuthority('ADMIN')" th:href="/add" class="btn btn-sm btn-danger">Lisää tuote</a>
 </div>
 
 </body>

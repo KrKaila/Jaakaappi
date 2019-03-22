@@ -1,4 +1,4 @@
-package HaagaHelia.Jaakaappi.web;
+package HaagaHelia.Tuote.web;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import HaagaHelia.Jaakaappi.domain.CategoryRepository;
-import HaagaHelia.Jaakaappi.domain.Tuote;
-import HaagaHelia.Jaakaappi.domain.TuoteRepository;
+import HaagaHelia.Tuote.domain.CategoryRepository;
+import HaagaHelia.Tuote.domain.Tuote;
+import HaagaHelia.Tuote.domain.TuoteRepository;
 
 //Kapellimestari, joka käskyttää kaikkia muita luokkia
 @Controller
@@ -28,13 +28,20 @@ public class tuoteController {
 	@Autowired
 	private CategoryRepository crepository;
 	
+	@RequestMapping(value="/login")
+    public String login() {	
+    return "tuotelist";
+    }	
+	@RequestMapping(value="/login?logout")	
+	public String logout() {
+		return "redirect:..login";
+	}
 	// Show all students
     @RequestMapping(value="/tuotelist")
     public String studentList(Model model) {	
         model.addAttribute("tuotteet", trepository.findAll());
         return "tuotelist";
     }
-	
 	//RESTillä tehty haku
 	@RequestMapping(value="/tuotteet")
 	public @ResponseBody List<Tuote> tuoteListRest() {
@@ -46,31 +53,33 @@ public class tuoteController {
 		return trepository.findById(tuoteid);
 	}
 	//lisää tuote
-
 	@RequestMapping(value="/add")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String addTuote(@Valid String name, Model model) {
-		
 		model.addAttribute("tuote", new Tuote());
-		model.addAttribute("categoryNames", crepository.findAll());
+		model.addAttribute("categories", crepository.findAll());
 		return "addtuote";
 	}
 	//tallenna tuote
-
 		@RequestMapping(value="/save", method = RequestMethod.POST)
+		@PreAuthorize("hasAuthority('ADMIN')")
 		public String save(Tuote tuote) {
 			trepository.save(tuote);
 			return "redirect:tuotelist";
 		}
 		//poista tuote
-	
+		//value sama kuin tuotelistin komento
 		@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-		public String deleteTuote(@PathVariable("tuoteid") Long tuoteId, Model model) {
+		@PreAuthorize("hasAuthority('ADMIN')")
+		//id tässä keksitty, samoin attribuutit
+		public String deleteTuote(@PathVariable("id") Long tuoteId, Model model) {
+			//tuoteId sama kuin attribuutti
 			trepository.deleteById(tuoteId);
 			return "redirect:..tuotelist";
 		}	
 		//muokkaa tuotetta
-	
 		@RequestMapping(value="/edit{id}")
+		@PreAuthorize("hasAuthority('ADMIN')")
 		public String editTuote(@PathVariable("tuoteid") Long tuoteid, Model model) {
 		model.addAttribute("tuote", trepository.findById(tuoteid));
 		model.addAttribute("categories", crepository.findAll());
