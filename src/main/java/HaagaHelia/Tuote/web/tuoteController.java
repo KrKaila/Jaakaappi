@@ -30,13 +30,14 @@ public class tuoteController {
 	
 	@RequestMapping(value="/login")
     public String login() {	
-    return "tuotelist";
+    return "login";
     }	
 	@RequestMapping(value="/login?logout")	
 	public String logout() {
 		return "redirect:..login";
 	}
-	// Show all students
+	
+	// Show all products
     @RequestMapping(value="/tuotelist")
     public String studentList(Model model) {	
         model.addAttribute("tuotteet", trepository.findAll());
@@ -53,24 +54,24 @@ public class tuoteController {
 		return trepository.findById(tuoteid);
 	}
 	//lisää tuote
-	@RequestMapping(value="/add")
 	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value="/add")
 	public String addTuote(@Valid String name, Model model) {
 		model.addAttribute("tuote", new Tuote());
 		model.addAttribute("categories", crepository.findAll());
 		return "addtuote";
 	}
 	//tallenna tuote
-		@RequestMapping(value="/save", method = RequestMethod.POST)
 		@PreAuthorize("hasAuthority('ADMIN')")
+		@RequestMapping(value="/save", method = RequestMethod.POST)
 		public String save(Tuote tuote) {
 			trepository.save(tuote);
 			return "redirect:tuotelist";
 		}
 		//poista tuote
 		//value sama kuin tuotelistin komento
-		@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 		@PreAuthorize("hasAuthority('ADMIN')")
+		@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 		//id tässä keksitty, samoin attribuutit
 		public String deleteTuote(@PathVariable("id") Long tuoteId, Model model) {
 			//tuoteId sama kuin attribuutti
@@ -78,11 +79,11 @@ public class tuoteController {
 			return "redirect:..tuotelist";
 		}	
 		//muokkaa tuotetta
-		@RequestMapping(value="/edit{id}")
 		@PreAuthorize("hasAuthority('ADMIN')")
-		public String editTuote(@PathVariable("tuoteid") Long tuoteid, Model model) {
+		@RequestMapping(value="/edit{id}")
+		public String addTuote(@PathVariable("id") Long tuoteid, Model model) {
 		model.addAttribute("tuote", trepository.findById(tuoteid));
 		model.addAttribute("categories", crepository.findAll());
-		return "redirect:..tuotelist";
+		return "edittuote";
 	}
 }

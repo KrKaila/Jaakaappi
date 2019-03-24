@@ -20,26 +20,27 @@ public class Tuote {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long tuoteid;
-	
+	//ei saa olla tyhjä kenttä
 	@NotNull
 	private String name;
-	
-	@Basic
 	private Date date;
 	
-	// private Category categoryName; sama nimi kuin OneToManyssä MappedBy= --Ehkä?
+	// linkittää Tuotteen Categorytauluun 
+	//private Category categoryName; sama nimi kuin OneToManyssä MappedBy= --Ehkä?
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
 	public Tuote() {}
+	
 	public Tuote(@NotNull String name, Date date, Category category) {
 	super();
 	this.name = name;
-	//this.date = date;
+	this.date = date;
 	this.category = category;
 	}
+
 	public Tuote(@NotNull String name, Date date) {
 	super();
 	this.name = name;

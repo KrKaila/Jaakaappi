@@ -5,19 +5,19 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <title>Harjoitustyo - Palvelinohjelmointi</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<title>Sisäänkirjautuminen</title>
-</head>
 <body>
 <h1>Sisäänkirjautuminen</h1>
 <div th:if="${param.error}">
-Väärä käyttäjätunnus tai salasana
+Väärä käyttäjätunnus tai salasana. Voi olla koodissakin vikaa...
 </div>
 <div th:if="${param.logout}">
 Olet kirjautunut ulos
 </div>
 <form th:action="@{/login}" method="post">
 <div><label>Käyttäjänimi: <input type="text" name="username"/></label></div>
+<div style="clear:both; display:block; height: 10px;"></div>
 <div><label>Salasana: <input type="password" name="password"/></label></div>
+<div style="clear:both; display:block; height: 10px;"></div>
 <div><input type="submit" value="Kirjaudu"/></div>
 </form>
 </body>

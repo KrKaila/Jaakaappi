@@ -3,6 +3,8 @@ package HaagaHelia.Tuote;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,23 +27,38 @@ import HaagaHelia.Tuote.web.UserDetailServiceImpl;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 @Autowired
 	    private UserDetailServiceImpl userDetailsService;	
+	 
+	 @Autowired
+		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+	    }
+	 
+	 @Autowired
+	 private HttpSession session;
+	 
+	 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception { 
 		http
-		.authorizeRequests().antMatchers("/css/**").permitAll()
+		//sallii css-muokkauksen kaikilta
+		.authorizeRequests()
+		.antMatchers("/", "/css/**").permitAll()
 		.and()
-		.authorizeRequests().anyRequest().authenticated()
+		.authorizeRequests()
+		.anyRequest().authenticated()
 		.and()
-		.formLogin().loginPage("/login").defaultSuccessUrl("/tuotelist").permitAll()
+		//jos oikea tunnus siirtyy /tuotelistiin
+		.formLogin()
+		.loginPage("/login")
+		.defaultSuccessUrl("/tuotelist")
+		.permitAll()
 		.and()
 		.logout()
 		.permitAll();
+		//.invalidateHttpSession(true);
 		
 	}
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-    }
+	
 	@SuppressWarnings("deprecation")
 	@Bean
     @Override
@@ -55,13 +72,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     	users.add(user);
     
-  	user = User.withDefaultPasswordEncoder()
+    	user = User.withDefaultPasswordEncoder()
                .username("admin")
                    .password("password")
                   .roles("USER", "ADMIN")
                   .build();
     	
     	users.add(user);
+    	System.out.println("täällä lisättiin usereita..");
+    	
+    	for (UserDetails userDetails : users) {
+        	System.out.println(userDetails.getPassword());
+        	System.out.println(userDetails.getUsername());
+			
+		}
     	
         return new InMemoryUserDetailsManager(users);
     }

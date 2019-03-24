@@ -13,13 +13,10 @@
 <form th:object="${tuote}" th:action=@{save} action="#" method="post">
 	<label for="name">Tuote</label>
 	<input type="text" id="name" th:field="*{name}" class="form-control"/>
-	<input th:if="${#fields.hasErrors('name')}"th:errors="*{name}">Virrrhe/>
 	<div style="clear:both; display:block; height: 10px;"></div>
-	
-	<!-- <label for="date">Parasta ennen</label>
+	<label for="date">Parasta ennen</label>
 	<input type="date" id="date" th:field="*{date}" class="form-control"/>
 	<div style="clear:both; display:block; height: 10px;"></div>
-	-->
 	<label for="catList">Elintarvikeryhmä</label>
 	<!-- määritellään mistä id otetaan -->
 	<select id="catList" th:field="*{category}" class="form-control">

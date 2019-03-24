@@ -17,6 +17,7 @@ public class Category {
 	private Long category_id;
 	private String categoryName;
 	
+	//linkittää Categoryn Tuote-entiteettiin
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Tuote> tuotteet;
 	

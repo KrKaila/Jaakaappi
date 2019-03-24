@@ -12,23 +12,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="uid", nullable = false, updatable = false)
 	private Long uid;
-	
-	@Column(name ="role", nullable = false)
-	private String role;
-	
+		
 	@Column(name ="username", nullable = false, unique = true)
 	private String username;
 	
 	@Column(name ="password", nullable = false)
 	private String passwordHash;
 	
+	@Column(name ="role", nullable = false)
+	private String role;
+	
 	public User() {
 	}
 	public User(String role, String username, String passwordHash) {
 		super();
-		this.role = role;
 		this.username = username;
 		this.passwordHash = passwordHash;
+		this.role = role;
 	}
 	public Long getUid() {
 		return uid;
@@ -36,13 +36,7 @@ public class User {
 	public void setUid(Long uid) {
 		this.uid = uid;
 	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-	public String getUsername() {
+		public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
@@ -54,9 +48,11 @@ public class User {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
-	@Override
-	public String toString() {
-		return "User [uid=" + uid + ", role=" + role + ", username=" + username + ", passwordHash=" + passwordHash + "]";
+	public String getRole() {
+		return role;
 	}
-
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 }
