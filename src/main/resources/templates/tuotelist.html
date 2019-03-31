@@ -24,7 +24,7 @@
 		<th>Tuote</th>
 		<th>Käyttöpäivä</th>
 		<th>Elintarvikeluokka</th>
-		<th sec:authorize="hasAuthority('ADMIN')"> </th>
+		<!--  <th sec:authorize="hasAuthority('ADMIN')"> </th>-->
 		</tr>
 		<tr th:each = "tuote : ${tuotteet}">
 		<td th:text="${tuote.name}"></td>
@@ -32,11 +32,11 @@
 		<td th:text="${tuote.category.categoryName}"></td>
 
 <!-- id sama kuin controllerissa, suluissa selitys mihin viittaa -->
-<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${tuote.tuoteid})}" class="btn btn-md btn-danger">Poista</a></td>
+<td><a th:href="@{/delete/{id}(id=${tuote.tuoteid})}" class="btn btn-md btn-danger">Poista</a></td>
 
 </tr>
 </table>
-<a sec:authorize="hasRole('ADMIN')"> th:href="/add" class="btn btn-lg btn-danger">Lisää tuote</a>
+<a href="/add" class="btn btn-lg btn-danger">Lisää tuote</a>
 </div>
 </body>
 </html>

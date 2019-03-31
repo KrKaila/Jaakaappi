@@ -6,7 +6,6 @@ xmlns:th="http://www.thymeleaf.org">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h2 th:inline="text">Moi [[${#httpServletRequest.remoteUser}]]!</h2>
 <h1>Muokkaa tuotetta</h1>
 <form th:object="${tuote}" th:action="@{../save}" action="#" method="post">
 	<input type="hidden" th:field="*{id}" class="form-control"/>

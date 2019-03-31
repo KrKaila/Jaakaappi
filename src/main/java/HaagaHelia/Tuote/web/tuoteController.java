@@ -30,7 +30,7 @@ public class tuoteController {
 	
 	@RequestMapping(value="/login")
     public String login() {	
-    return "login";
+    return "tuotelist";
     }	
 	@RequestMapping(value="/login?logout")	
 	public String logout() {
@@ -54,7 +54,7 @@ public class tuoteController {
 		return trepository.findById(tuoteid);
 	}
 	//lisää tuote
-	@PreAuthorize("hasAuthority('ADMIN')")
+	//@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/add")
 	public String addTuote(@Valid String name, Model model) {
 		model.addAttribute("tuote", new Tuote());
@@ -62,7 +62,7 @@ public class tuoteController {
 		return "addtuote";
 	}
 	//tallenna tuote
-		@PreAuthorize("hasAuthority('ADMIN')")
+	//	@PreAuthorize("hasAuthority('ADMIN')")
 		@RequestMapping(value="/save", method = RequestMethod.POST)
 		public String save(Tuote tuote) {
 			trepository.save(tuote);
@@ -70,7 +70,7 @@ public class tuoteController {
 		}
 		//poista tuote
 		//value sama kuin tuotelistin komento
-		@PreAuthorize("hasAuthority('ADMIN')")
+	//	@PreAuthorize("hasAuthority('ADMIN')")
 		@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 		//id tässä keksitty, samoin attribuutit
 		public String deleteTuote(@PathVariable("id") Long tuoteId, Model model) {
@@ -79,7 +79,7 @@ public class tuoteController {
 			return "redirect:..tuotelist";
 		}	
 		//muokkaa tuotetta
-		@PreAuthorize("hasAuthority('ADMIN')")
+	//	@PreAuthorize("hasAuthority('ADMIN')")
 		@RequestMapping(value="/edit{id}")
 		public String addTuote(@PathVariable("id") Long tuoteid, Model model) {
 		model.addAttribute("tuote", trepository.findById(tuoteid));

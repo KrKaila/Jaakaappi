@@ -1,8 +1,7 @@
 package HaagaHelia.Tuote.domain;
 
 import java.util.Date;
-
-import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,14 +20,17 @@ public class Tuote {
 //id ja generatedValue tekevät yksilöllisen primary keyn tuotteille
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long tuoteid;
+	@Column(name ="tuoteId", nullable = false, updatable = false)
+	private Long tuoteId;
 	//ei saa olla tyhjä kenttä
 	@NotNull
 	private String name;
+	
+	@Column(name ="date", nullable = false, updatable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	
 	// linkittää Tuotteen Categorytauluun 
-	//private Category categoryName; sama nimi kuin OneToManyssä MappedBy= --Ehkä?
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "category_id")
@@ -40,7 +44,6 @@ public class Tuote {
 	this.date = date;
 	this.category = category;
 	}
-
 	public Tuote(@NotNull String name, Date date) {
 	super();
 	this.name = name;
@@ -50,15 +53,15 @@ public class Tuote {
 	super();
 	this.name = name;
 	}
-	public Tuote(String name) {
+	public Tuote(@NotNull String name) {
 		super();
 		this.name = name;
 	}
-	public Long getTuoteid() {
-		return tuoteid;
+	public Long getTuoteId() {
+		return tuoteId;
 	}
-	public void setTuoteid(Long tuoteid) {
-		this.tuoteid = tuoteid;
+	public void setTuoteId(Long tuoteId) {
+		this.tuoteId = tuoteId;
 	}
 	public String getName() {
 		return name;
@@ -83,8 +86,8 @@ public class Tuote {
 	@Override
 	public String toString() {
 		if (this.category != null)
-			return "Tuote [tuoteid=" + tuoteid + ", name=" + name + ", category =" + this.getCategory() + "]";
+			return "Tuote [tuoteId=" + tuoteId + ", name=" + name + ", date=" + date + " category =" + this.getCategory() + "]";
 		else
-		return "Tuote [tuoteid=" + tuoteid + ", name=" + name + ", date =" + date + "]";
+		return "Tuote [tuoteId=" + tuoteId + ", name=" + name + ", date =" + date + "]";
 	}
 }

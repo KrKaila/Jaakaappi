@@ -6,7 +6,6 @@
     <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
 </head>
 <body>
-<h2 th:inline="text">Moi [[${#httpServletRequest.remoteUser}]]!</h2>
 <h1>Lisää tuote jääkaappiin</h1>
 <div class="container">
 <div class="col-md-4">
@@ -17,9 +16,10 @@
 	<label for="date">Parasta ennen</label>
 	<input type="date" id="date" th:field="*{date}" class="form-control"/>
 	<div style="clear:both; display:block; height: 10px;"></div>
-	<label for="catList">Elintarvikeryhmä</label>
+	
+	<label for="catlist">Elintarvikeryhmä</label>
 	<!-- määritellään mistä id otetaan -->
-	<select id="catList" th:field="*{category}" class="form-control">
+	<select id="catlist" th:field="*{category}" class="form-control">
 		<option th:each="category: ${categories}"
 	th:value="${category.category_id}" th:text="${category.categoryName}"></option>
 	</select>
